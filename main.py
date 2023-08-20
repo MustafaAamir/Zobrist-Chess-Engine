@@ -35,7 +35,7 @@ target_squares = {
         0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0,
-        5, 5, 5, 5, 5, 4, 6, 6
+        0, 0, 0, 0, 0, 0, 0, 0
     ],
     chess.KNIGHT: [
         0, 1, 1, 1, 1, 1, 1, 0,
@@ -89,11 +89,12 @@ def evaluate_board(board):
   for square in chess.SQUARES:
     piece = board.piece_at(square)
     if piece is not None:
-      # Did this because square values were prioritized over piece values.
-      value = piece_values[piece.piece_type] + (taget_squares[piece.piece_type][square] / 10)
+      # Did this because square values were prioritized over piece values
       if piece.color == chess.WHITE:
+        value = piece_values[piece.piece_type] + (taget_squares[piece.piece_type][square ^ 56] / 10)
         evaluation += value
       else: 
+        value = piece_values[piece.piece_type] + (taget_squares[piece.piece_type][square] / 10)
         evaluation -= value
   return evaluation
 
